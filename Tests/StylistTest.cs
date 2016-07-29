@@ -22,8 +22,15 @@ namespace Salon
     public void Saves_SavesNewStylist_StylistSaved()
     {
       // Arrange
+      string name = "Doc Gonzo";
+      string speciality = "Fur";
+      int instancesExpected = 1;
+      Stylist testStylist = new Stylist(name, speciality);
       // Act
+      testStylist.Save();
+      int instancesResult = Stylist.GetCount();
       // Assert
+      Assert.Equal(instancesExpected, instancesResult);
     }
     [Fact]
     public void GetAll_GetsAllStylists_AllStylistsReturned()

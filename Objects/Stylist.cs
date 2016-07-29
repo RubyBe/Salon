@@ -1,4 +1,5 @@
 using System;
+using System. Collections.Generic;
 
 namespace Salon
 {
@@ -8,6 +9,8 @@ namespace Salon
     private int _id;
     private string _name;
     private string _specialty;
+    private static int _instances;
+    private static List<Stylist> _stylists = new List<Stylist>{};
 
     // Constructors
     // A constructor that takes two paramaters and auto-assigns id
@@ -15,6 +18,9 @@ namespace Salon
     {
       _name = name;
       _specialty = specialty;
+      _instances++;
+      // _stylists.Add(this);
+
     }
 
     // Getters and Setters
@@ -24,5 +30,13 @@ namespace Salon
     }
 
     // Other methods
+    public static int GetCount()
+    {
+      return _stylists.Count;
+    }
+    public void Save()
+    {
+      // TODO
+    }
   }
 }
