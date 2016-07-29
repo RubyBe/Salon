@@ -44,5 +44,9 @@ namespace Salon
     {
       return _clients[id-1];
     }
+    public void Update(string name)
+    {
+      // TODO
+    }
   }
 }
