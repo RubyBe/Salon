@@ -7,6 +7,10 @@ using System.IO;
 
 namespace Salon
 {
+  public static class DBConfiguration
+  {
+    public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=salon;Integrated Security=SSPI;";
+  }
   public class Startup
   {
     public void Configure(IApplicationBuilder app)
