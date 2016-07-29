@@ -47,7 +47,7 @@ namespace Salon
     }
     public static Stylist FindById(int id)
     {
-      return _stylists[1];
+      return _stylists[id - 1];
     }
   }
 }
