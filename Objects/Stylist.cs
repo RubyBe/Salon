@@ -59,7 +59,7 @@ namespace Salon
     }
     public static void DeleteById(int id)
     {
-      // TODO
+      _stylists.RemoveAt(id);
     }
   }
 }
