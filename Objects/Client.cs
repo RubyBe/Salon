@@ -11,14 +11,14 @@ namespace Salon
     // Constructors
     public Client(string name, string service)
     {
-      _name = "whatever";
-      _service = "whichever";
+      _name = name;
+      _service = service;
     }
 
     // Getters, Setters
     public string GetName()
     {
-      return null;
+      return _name;
     }
 
     // Other Methods
