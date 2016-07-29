@@ -124,5 +124,22 @@ namespace Salon
       // Assert
       Assert.Equal(countExpected, countResult);
     }
+    public void GetAllClients_GetsAllClientsForStylists_AllStylistClientsReturned()
+    {
+      // Arrange
+      string nameStylist = "Doc Gonzo";
+      string specialityStylist = "Fur";
+      string nameClient = "Mouse";
+      string serviceClient = "Shedding";
+      Stylist testStylist = new Stylist(nameStylist, specialityStylist);
+      Client testClient = new Client(nameClient, serviceClient);
+      testStylist.Save();
+      testClient.Save();
+      List<Client> listExpected = new List<Client> {testClient};
+      // Act
+      List<Client> listResult = testStylist.GetClients();
+      // Assert
+      Assert.Equal(listExpected, listResult);
+    }
   }
 }

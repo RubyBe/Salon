@@ -9,8 +9,8 @@ namespace Salon
     private int _id;
     private string _name;
     private string _specialty;
-    // private static int _instances;
     private static List<Stylist> _stylists = new List<Stylist>{};
+    private static List<Client> _clients = new List<Client>{};
 
     // Constructors
     // A constructor that takes two paramaters and auto-assigns id
@@ -19,6 +19,7 @@ namespace Salon
       _name = name;
       _specialty = specialty;
       _id = _stylists.Count;
+      _clients = new List<Client>{};
     }
 
     // Getters and Setters
@@ -32,6 +33,11 @@ namespace Salon
     }
 
     // Other methods
+    // method to add a client to this stylist's list of clients
+    public void AddClient(Client client)
+    {
+      _clients.Add(client);
+    }
     public static int GetCount()
     {
       return _stylists.Count;
@@ -59,6 +65,10 @@ namespace Salon
     public static void DeleteById(int id)
     {
       _stylists.RemoveAt(id);
+    }
+    public List<Client> GetClients()
+    {
+      return _clients;
     }
   }
 }
