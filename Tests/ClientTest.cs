@@ -9,6 +9,15 @@ namespace Salon
     [Fact]
     public void New_CreatesNewClient_ClientCreated()
     {
+      // Arrange
+      string name = "Doc Gonzo";
+      string service = "Haircut";
+      // Act
+      Client testClient = new Client(name, service);
+      string testName = testClient.GetName();
+      // Assert
+      Console.WriteLine(testClient);
+      Assert.Equal(name, testName);
     }
     [Fact]
     public void Saves_SavesNewClient_ClientSaved()
