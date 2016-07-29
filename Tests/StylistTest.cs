@@ -17,7 +17,6 @@ namespace Salon
       // Assert
       Console.WriteLine(testStylist);
       Assert.Equal(name, testName);
-
     }
     [Fact]
     public void Saves_SavesNewStylist_StylistSaved()

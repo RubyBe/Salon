@@ -13,7 +13,8 @@ namespace Salon
     // A constructor that takes two paramaters and auto-assigns id
     public Stylist(string name, string specialty, int id=0)
     {
-      // TODO
+      _name = name;
+      _specialty = specialty;
     }
 
     // Getters and Setters
