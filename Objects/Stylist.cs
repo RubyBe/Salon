@@ -42,8 +42,8 @@ namespace Salon
     }
     public static void DeleteAll()
     {
-      // _stylists.Clear();
-      // _instances = 0;
+      _stylists.Clear();
+      _instances = 0;
     }
   }
 }
