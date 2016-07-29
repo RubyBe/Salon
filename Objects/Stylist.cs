@@ -9,7 +9,7 @@ namespace Salon
     private int _id;
     private string _name;
     private string _specialty;
-    private static int _instances;
+    // private static int _instances;
     private static List<Stylist> _stylists = new List<Stylist>{};
 
     // Constructors
@@ -18,7 +18,8 @@ namespace Salon
     {
       _name = name;
       _specialty = specialty;
-      _instances++;
+      // _instances++;
+      _id = _stylists.Count;
     }
 
     // Getters and Setters
@@ -43,7 +44,10 @@ namespace Salon
     public static void DeleteAll()
     {
       _stylists.Clear();
-      _instances = 0;
+    }
+    public static Stylist FindById(int id)
+    {
+      return _stylists[1];
     }
   }
 }
