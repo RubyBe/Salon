@@ -36,7 +36,7 @@ namespace Salon
     }
     public void Save()
     {
-      // TODO
+      _stylists.Add(this);
     }
   }
 }
