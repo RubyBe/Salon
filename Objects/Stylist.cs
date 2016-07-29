@@ -18,7 +18,6 @@ namespace Salon
     {
       _name = name;
       _specialty = specialty;
-      // _instances++;
       _id = _stylists.Count;
     }
 

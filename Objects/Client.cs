@@ -7,7 +7,7 @@ namespace Salon
     // Properties
     private string _name;
     private string _service;
-    private List<Client> _clients = new List<Client>{};
+    private static List<Client> _clients = new List<Client>{};
 
     // Constructors
     public Client(string name, string service)
@@ -25,11 +25,11 @@ namespace Salon
     // Other Methods
     public void Save()
     {
-      // TODO
+      _clients.Add(this);
     }
     public static int GetCount()
     {
-      return 0;
+      return _clients.Count;
     }
   }
 }
