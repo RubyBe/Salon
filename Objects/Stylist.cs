@@ -38,8 +38,7 @@ namespace Salon
     }
     public static List<Stylist> GetAll()
     {
-      List<Stylist> testList = new List<Stylist>{};
-      return testList;
+      return _stylists;
     }
     public static void DeleteAll()
     {
