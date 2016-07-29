@@ -115,6 +115,17 @@ namespace Salon
     [Fact]
     public void Delete_DeletesASingleClient_SingleClientDeleted()
     {
+      // Arrange
+      string name1 = "Doc Gonzo";
+      string service1 = "Fur";
+      Client testClient1 = new Client(name1, service1);
+      testClient1.Save();
+      int countExpected = 0;
+      // Act
+      Client.DeleteById(testClient1.GetId());
+      int countResult = Client.GetCount();
+      // Assert
+      Assert.Equal(countExpected, countResult);
     }
   }
 }

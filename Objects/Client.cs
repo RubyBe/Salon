@@ -22,6 +22,10 @@ namespace Salon
     {
       return _name;
     }
+    public int GetId()
+    {
+      return _id;
+    }
 
     // Other Methods
     public void Save()
@@ -47,6 +51,10 @@ namespace Salon
     public void Update(string name)
     {
       _name = name;
+    }
+    public static void DeleteById(int id)
+    {
+      // TODO
     }
   }
 }
