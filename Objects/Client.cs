@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace Salon
@@ -9,14 +10,14 @@ namespace Salon
     // Properties
     private int _id;
     private string _name;
-    private string _service;
+    private string _treatment;
     private static List<Client> _clients = new List<Client>{};
 
     // Constructors
     public Client(string name, string service, int id=0)
     {
       _name = name;
-      _service = service;
+      _treatment = service;
       _id = _clients.Count;
     }
 
@@ -24,6 +25,10 @@ namespace Salon
     public string GetName()
     {
       return _name;
+    }
+    public string GetTreatment()
+    {
+      return _treatment;
     }
     public int GetId()
     {
@@ -47,7 +52,36 @@ namespace Salon
     }
     public void Save()
     {
-      _clients.Add(this);
+      // Set and open the database connection
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      // Build the SQL query
+      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, treatment) OUTPUT INSERTED.id VALUES (@ClientName, @ClientTreatment);", conn);
+      // Define parameters to inject into the query
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@ClientName";
+      nameParameter.Value = this.GetName();
+      SqlParameter treatmentParameter = new SqlParameter();
+      treatmentParameter.ParameterName = "@ClientTreatment";
+      treatmentParameter.Value = this.GetTreatment();
+      // Inject parameters into the Query
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(treatmentParameter);
+      // Execute the SQL query
+      SqlDataReader rdr = cmd.ExecuteReader();
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      // Close any open connections
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
     }
     public static int GetCount()
     {
@@ -83,7 +117,28 @@ namespace Salon
     }
     public static void DeleteAll()
     {
-      _clients.Clear();
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM clients;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        // int clientId = rdr.GetInt32(0);
+        // string clientName = rdr.GetString(1);
+        // string clientService = rdr.GetString(2);
+        // Client newClient = new Client(clientName, clientService, clientId);
+        // allClients.Add(newClient);
+      }
+      if(rdr!=null)
+      {
+        rdr.Close();
+      }
+      if(conn!=null)
+      {
+        conn.Close();
+      }
     }
     public static Client FindById(int id)
     {
