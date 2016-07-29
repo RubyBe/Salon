@@ -1,4 +1,4 @@
-
+using System.Collections.Generic;
 
 namespace Salon
 {
@@ -7,6 +7,7 @@ namespace Salon
     // Properties
     private string _name;
     private string _service;
+    private List<Client> _clients = new List<Client>{};
 
     // Constructors
     public Client(string name, string service)
@@ -22,5 +23,13 @@ namespace Salon
     }
 
     // Other Methods
+    public void Save()
+    {
+      // TODO
+    }
+    public static int GetCount()
+    {
+      return 0;
+    }
   }
 }

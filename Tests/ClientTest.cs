@@ -22,6 +22,16 @@ namespace Salon
     [Fact]
     public void Saves_SavesNewClient_ClientSaved()
     {
+      // Arrange
+      string name = "Doc Gonzo";
+      string service = "Fur";
+      int instancesExpected = 1;
+      Client testClient = new Client(name, service);
+      // Act
+      testClient.Save();
+      int instancesResult = Client.GetCount();
+      // Assert
+      Assert.Equal(instancesExpected, instancesResult);
     }
     [Fact]
     public void GetAll_GetsAllClients_AllClientsReturned()
