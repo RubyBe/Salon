@@ -27,6 +27,10 @@ namespace Salon
     {
       return _name;
     }
+    public int GetId()
+    {
+      return _id;
+    }
 
     // Other methods
     public static int GetCount()
@@ -52,6 +56,10 @@ namespace Salon
     public void Update(string newName)
     {
       _name = newName;
+    }
+    public static void DeleteById(int id)
+    {
+      // TODO
     }
   }
 }

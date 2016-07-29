@@ -113,8 +113,16 @@ namespace Salon
     public void Delete_DeletesASingleStylist_SingleStylistDeleted()
     {
       // Arrange
+      string name1 = "Doc Gonzo";
+      string speciality1 = "Fur";
+      Stylist testStylist1 = new Stylist(name1, speciality1);
+      testStylist1.Save();
+      int countExpected = 0;
       // Act
+      Stylist.DeleteById(testStylist1.GetId());
+      int countResult = Stylist.GetCount();
       // Assert
+      Assert.Equal(countExpected, countResult);
     }
   }
 }
