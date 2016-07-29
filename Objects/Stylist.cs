@@ -19,8 +19,6 @@ namespace Salon
       _name = name;
       _specialty = specialty;
       _instances++;
-      // _stylists.Add(this);
-
     }
 
     // Getters and Setters
@@ -37,6 +35,16 @@ namespace Salon
     public void Save()
     {
       _stylists.Add(this);
+    }
+    public static List<Stylist> GetAll()
+    {
+      List<Stylist> testList = new List<Stylist>{};
+      return testList;
+    }
+    public static void DeleteAll()
+    {
+      _stylists.Clear();
+      _instances = 0;
     }
   }
 }
