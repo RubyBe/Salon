@@ -36,5 +36,9 @@ namespace Salon
     {
       return _clients;
     }
+    public static void DeleteAll()
+    {
+      _clients.Clear();
+    }
   }
 }

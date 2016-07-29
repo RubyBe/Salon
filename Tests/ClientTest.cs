@@ -5,8 +5,13 @@ using Xunit;
 
 namespace Salon
 {
-  public class ClientTest
+  public class ClientTest : IDisposable
   {
+    public void Dispose()
+    {
+      Client.DeleteAll();
+    }
+
     [Fact]
     public void New_CreatesNewClient_ClientCreated()
     {
@@ -32,6 +37,7 @@ namespace Salon
       testClient.Save();
       int instancesResult = Client.GetCount();
       // Assert
+      Console.WriteLine(instancesResult);
       Assert.Equal(instancesExpected, instancesResult);
     }
     [Fact]
