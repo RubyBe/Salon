@@ -75,7 +75,7 @@ namespace Salon
       Assert.Equal(listExpected, listResult);
     }
     [Fact]
-    public void Find_FindsAStylist_StylistFound()
+    public void FindById_FindsAStylistById_StylistFoundById()
     {
       // Arrange
       string name1 = "Doc Gonzo";
@@ -97,8 +97,17 @@ namespace Salon
     public void Update_UpdatesAStylist_StylistUpdated()
     {
       // Arrange
+      string name1 = "Doc Gonzo";
+      string speciality1 = "Fur";
+      Stylist testStylist1 = new Stylist(name1, speciality1);
+      testStylist1.Save();
+      string name2 = "Doctor Gonzo";
+      string nameExpected = name2;
       // Act
+      testStylist1.Update(name2);
+      string nameResult = testStylist1.GetName();
       // Assert
+      Assert.Equal(nameExpected, nameResult);
     }
     [Fact]
     public void Delete_DeletesASingleStylist_SingleStylistDeleted()

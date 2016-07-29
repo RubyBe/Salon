@@ -49,5 +49,9 @@ namespace Salon
     {
       return _stylists[id - 1];
     }
+    public void Update(string newValue)
+    {
+      // TODO
+    }
   }
 }
