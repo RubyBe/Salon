@@ -7,11 +7,35 @@ namespace Salon
 {
   public class ClientTest : IDisposable
   {
+    public ClientTest()
+    {
+      DBConfiguration.ConnectionString="Data Source=(localdb)\\mssqllocaldb;Initial Catalog=salon_test;Integrated Security=SSPI;";
+    }
+    public void Test_DatabaseEmptyAtFirst()
+    {
+      //Arrange
+      int countExpected = 0;
+      // Act
+      int countResult = Client.GetAll().Count;
+      // Assert
+      Assert.Equal(countExpected, countResult);
+    }
     public void Dispose()
     {
       Client.DeleteAll();
     }
-
+    [Fact]
+    public void Test_Save_SavesToDatabase()
+    {
+      // Arrange
+      Client testClient = new Client("Doc Gonzo", "Brush");
+      List<Client> listExpected = new List<Client>{testClient};
+      // Act
+      testClient.Save();
+      List<Client> listResult = Client.GetAll();
+      // Assert
+      Assert.Equal(listExpected, listResult);
+    }
     [Fact]
     public void New_CreatesNewClient_ClientCreated()
     {
@@ -126,6 +150,15 @@ namespace Salon
       int countResult = Client.GetCount();
       // Assert
       Assert.Equal(countExpected, countResult);
+    }
+    [Fact]
+    public void Test_NamesAreEqual_ReturnsTrueIfNamesAreTheSame()
+    {
+      // Arrange, Act
+      Client firstClient = new Client("Doc Gonzo", "Brush");
+      Client secondClient = new Client("Doc Gonzo", "Brush");
+      //Assert
+      Assert.Equal(firstClient, secondClient);
     }
   }
 }

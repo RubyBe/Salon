@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace Salon
 {
@@ -29,6 +31,20 @@ namespace Salon
     }
 
     // Other Methods
+    // a method that tests equality of objects based on value of _name
+    public override bool Equals(System.Object otherClient)
+    {
+      if(!(otherClient is Client))
+      {
+        return false;
+      }
+      else
+      {
+        Client newClient = (Client) otherClient;
+        bool nameEquality =(this.GetName() == newClient.GetName());
+        return(nameEquality);
+      }
+    }
     public void Save()
     {
       _clients.Add(this);
@@ -37,9 +53,33 @@ namespace Salon
     {
       return _clients.Count;
     }
+    // a task that reads all client records from the salon database clients table
     public static List<Client> GetAll()
     {
-      return _clients;
+      List<Client> allClients = new List<Client>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int clientId = rdr.GetInt32(0);
+        string clientName = rdr.GetString(1);
+        string clientService = rdr.GetString(2);
+        Client newClient = new Client(clientName, clientService, clientId);
+        allClients.Add(newClient);
+      }
+      if(rdr!=null)
+      {
+        rdr.Close();
+      }
+      if(conn!=null)
+      {
+        conn.Close();
+      }
+      return allClients;
     }
     public static void DeleteAll()
     {
