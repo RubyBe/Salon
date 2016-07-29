@@ -42,7 +42,7 @@ namespace Salon
     }
     public static Client FindById(int id)
     {
-      return _clients[id];
+      return _clients[id-1];
     }
   }
 }
