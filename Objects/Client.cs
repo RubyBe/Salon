@@ -5,12 +5,13 @@ namespace Salon
   public class Client
   {
     // Properties
+    private int _id;
     private string _name;
     private string _service;
     private static List<Client> _clients = new List<Client>{};
 
     // Constructors
-    public Client(string name, string service)
+    public Client(string name, string service, int id=0)
     {
       _name = name;
       _service = service;
@@ -30,6 +31,10 @@ namespace Salon
     public static int GetCount()
     {
       return _clients.Count;
+    }
+    public static List<Client> GetAll()
+    {
+      return _clients;
     }
   }
 }

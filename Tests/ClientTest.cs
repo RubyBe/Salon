@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 
@@ -36,6 +37,20 @@ namespace Salon
     [Fact]
     public void GetAll_GetsAllClients_AllClientsReturned()
     {
+      // Arrange
+      string name1 = "Doc Gonzo";
+      string service1 = "Fur";
+      string name2 = "Mouse";
+      string service2 = "Shedding";
+      Client testClient1 = new Client(name1, service1);
+      Client testClient2 = new Client(name2, service2);
+      List<Client> listExpected = new List<Client>{ testClient1, testClient2};
+      testClient1.Save();
+      testClient2.Save();
+      // Act
+      List<Client> listResult = Client.GetAll();
+      // Assert
+      Assert.Equal(listExpected, listResult);
     }
     [Fact]
     public void DeleteAll_DeletesAllClients_AllClientsDeleted()
