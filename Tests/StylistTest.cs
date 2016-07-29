@@ -59,8 +59,20 @@ namespace Salon
     public void DeleteAll_DeletesAllStylists_AllStylistsDeleted()
     {
       // Arrange
+      string name1 = "Doc Gonzo";
+      string speciality1 = "Fur";
+      string name2 = "Mouse";
+      string speciality2 = "Shedding";
+      Stylist testStylist1 = new Stylist(name1, speciality1);
+      Stylist testStylist2 = new Stylist(name2, speciality2);
+      testStylist1.Save();
+      testStylist2.Save();
+      List<Stylist> listExpected = new List<Stylist>(){};
       // Act
+      Stylist.DeleteAll();
+      List<Stylist> listResult = Stylist.GetAll();
       // Assert
+      Assert.Equal(listExpected, listResult);
     }
     [Fact]
     public void Find_FindsAStylist_StylistFound()
