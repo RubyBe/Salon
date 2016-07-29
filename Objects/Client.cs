@@ -14,11 +14,11 @@ namespace Salon
     private static List<Client> _clients = new List<Client>{};
 
     // Constructors
-    public Client(string name, string service, int id=0)
+    public Client(string name, string treatment, int Id=0)
     {
+      _id = Id;
       _name = name;
-      _treatment = service;
-      _id = _clients.Count;
+      _treatment = treatment;
     }
 
     // Getters, Setters
@@ -47,7 +47,8 @@ namespace Salon
       {
         Client newClient = (Client) otherClient;
         bool nameEquality =(this.GetName() == newClient.GetName());
-        return(nameEquality);
+        bool idEquality = (this.GetId() == newClient.GetId());
+        return(nameEquality && idEquality);
       }
     }
     public void Save()
@@ -119,26 +120,9 @@ namespace Salon
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
-
       SqlCommand cmd = new SqlCommand("DELETE FROM clients;", conn);
-      SqlDataReader rdr = cmd.ExecuteReader();
-
-      while(rdr.Read())
-      {
-        // int clientId = rdr.GetInt32(0);
-        // string clientName = rdr.GetString(1);
-        // string clientService = rdr.GetString(2);
-        // Client newClient = new Client(clientName, clientService, clientId);
-        // allClients.Add(newClient);
-      }
-      if(rdr!=null)
-      {
-        rdr.Close();
-      }
-      if(conn!=null)
-      {
-        conn.Close();
-      }
+      cmd.ExecuteNonQuery();
+      conn.Close();
     }
     public static Client FindById(int id)
     {
