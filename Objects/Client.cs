@@ -15,6 +15,7 @@ namespace Salon
     {
       _name = name;
       _service = service;
+      _id = _clients.Count;
     }
 
     // Getters, Setters
@@ -54,7 +55,7 @@ namespace Salon
     }
     public static void DeleteById(int id)
     {
-      // TODO
+      _clients.RemoveAt(id);
     }
   }
 }

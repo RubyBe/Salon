@@ -12,31 +12,10 @@ public void FindById_FindsAClientById_ClientFoundById()
 [Fact]
 public void Update_UpdatesAClient_ClientUpdated()
 {
-  // Arrange
-  string name1 = "Doc Gonzo";
-  string service1 = "Fur";
-  Client testClient1 = new Client(name1, service1);
-  testClient1.Save();
-  string name2 = "Doctor Gonzo";
-  string nameExpected = name2;
-  // Act
-  testClient1.Update(name2);
-  string nameResult = testClient1.GetName();
-  // Assert
-  Assert.Equal(nameExpected, nameResult);
+
 }
 [Fact]
 public void Delete_DeletesASingleClient_SingleClientDeleted()
 {
-  // Arrange
-  string name1 = "Doc Gonzo";
-  string service1 = "Fur";
-  Client testClient1 = new Client(name1, service1);
-  testClient1.Save();
-  int countExpected = 0;
-  // Act
-  Client.DeleteById(testClient1.GetId());
-  int countResult = Client.GetCount();
-  // Assert
-  Assert.Equal(countExpected, countResult);
+
 }
