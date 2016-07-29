@@ -40,5 +40,9 @@ namespace Salon
     {
       _clients.Clear();
     }
+    public static Client FindById(int id)
+    {
+      return _clients[id];
+    }
   }
 }

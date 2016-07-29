@@ -7,21 +7,7 @@ public void DeleteAll_DeletesAllClients_AllClientsDeleted()
 [Fact]
 public void FindById_FindsAClientById_ClientFoundById()
 {
-  // Arrange
-  string name1 = "Doc Gonzo";
-  string service1 = "Fur";
-  string name2 = "Mouse";
-  string service2 = "Shedding";
-  Client testClient1 = new Client(name1, service1);
-  Client testClient2 = new Client(name2, service2);
-  testClient1.Save();
-  testClient2.Save();
-  string nameExpected = testClient1.GetName();
-  // Act
-  Client resultClient = Client.FindById(1);
-  string nameResult = resultClient.GetName();
-  // Assert
-  Assert.Equal(nameExpected, nameResult);
+
 }
 [Fact]
 public void Update_UpdatesAClient_ClientUpdated()
