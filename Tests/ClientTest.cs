@@ -70,7 +70,7 @@ namespace Salon
       Client testClient2 = new Client(name2, service2);
       testClient1.Save();
       testClient2.Save();
-      List<Client> listExpected = new List<Client>(){testClient1, testClient2};
+      List<Client> listExpected = new List<Client>(){};
       // Act
       Client.DeleteAll();
       List<Client> listResult = Client.GetAll();
