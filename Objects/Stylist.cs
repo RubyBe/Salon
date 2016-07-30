@@ -16,11 +16,11 @@ namespace Salon
 
     // Constructors
     // A constructor that takes two paramaters and auto-assigns id
-    public Stylist(string name, string specialty, int id=0)
+    public Stylist(string name, string specialty, int Id=0)
     {
       _name = name;
       _specialty = specialty;
-      _id = _stylists.Count;
+      _id = Id;
       _clients = new List<Client>{};
     }
 
@@ -39,14 +39,47 @@ namespace Salon
     }
 
     // Other methods
-    // method to add a client to this stylist's list of clients
-    public void AddClient(Client client)
+    // a method that tests equality of objects based on value of _name
+    public override bool Equals(System.Object otherStylist)
     {
-      _clients.Add(client);
+      if(!(otherStylist is Stylist))
+      {
+        return false;
+      }
+      else
+      {
+        Stylist newStylist = (Stylist) otherStylist;
+        bool nameEquality =(this.GetName() == newStylist.GetName());
+        return(nameEquality);
+      }
     }
-    public static int GetCount()
+    // a method to return a list of all stylists
+    public static List<Stylist> GetAll()
     {
-      return _stylists.Count;
+      List<Stylist> allStylists = new List<Stylist>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int stylistId = rdr.GetInt32(0);
+        string stylistName = rdr.GetString(1);
+        string stylistService = rdr.GetString(2);
+        Stylist newStylist = new Stylist(stylistName, stylistService, stylistId);
+        allStylists.Add(newStylist);
+      }
+      if(rdr!=null)
+      {
+        rdr.Close();
+      }
+      if(conn!=null)
+      {
+        conn.Close();
+      }
+      return allStylists;
     }
     public void Save()
     {
@@ -81,29 +114,14 @@ namespace Salon
         conn.Close();
       }
     }
-    public static List<Stylist> GetAll()
-    {
-      return _stylists;
-    }
+
     public static void DeleteAll()
     {
-      _stylists.Clear();
-    }
-    public static Stylist FindById(int id)
-    {
-      return _stylists[id - 1];
-    }
-    public void Update(string newName)
-    {
-      _name = newName;
-    }
-    public static void DeleteById(int id)
-    {
-      _stylists.RemoveAt(id);
-    }
-    public List<Client> GetClients()
-    {
-      return _clients;
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM stylists;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
     }
     public static Stylist Find(int id)
     {

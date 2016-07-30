@@ -30,10 +30,10 @@ namespace Salon
     {
       // Arrange
       Client testClient = new Client("Doc Gonzo", "Brush", 1);
-      List<Client> listExpected = new List<Client>{testClient};
-      // Act
       testClient.Save();
+      // Act
       List<Client> listResult = Client.GetAll();
+      List<Client> listExpected = new List<Client>{testClient};
       // Assert
       Assert.Equal(listExpected, listResult);
     }
@@ -49,19 +49,6 @@ namespace Salon
       int testId = testClient.GetId();
       // Assert
       Assert.Equal(testId, result);
-    }
-    [Fact]
-    public void New_CreatesNewClient_ClientCreated()
-    {
-      // Arrange
-      string name = "Doc Gonzo";
-      string service = "Haircut";
-      // Act
-      Client testClient = new Client(name, service, 1);
-      string testName = testClient.GetName();
-      // Assert
-      Console.WriteLine(testClient);
-      Assert.Equal(name, testName);
     }
     [Fact]
     public void FindById_FindsAClientById_ClientFoundById()

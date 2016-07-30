@@ -12,7 +12,6 @@ namespace Salon
     private string _name;
     private string _treatment;
     private int _stylistId;
-    private static List<Client> _clients = new List<Client>{};
 
     // Constructors
     public Client(string name, string treatment, int stylistId, int Id=0)
@@ -21,6 +20,20 @@ namespace Salon
       _name = name;
       _treatment = treatment;
       _stylistId = stylistId;
+    }
+    // a method that tests equality of objects based on value of _name
+    public override bool Equals(System.Object otherClient)
+    {
+      if(!(otherClient is Client))
+      {
+        return false;
+      }
+      else
+      {
+        Client newClient = (Client) otherClient;
+        bool nameEquality =(this.GetName() == newClient.GetName());
+        return(nameEquality);
+      }
     }
 
     // Getters, Setters
@@ -38,20 +51,33 @@ namespace Salon
     }
 
     // Other Methods
-    // a method that tests equality of objects based on value of _name
-    public override bool Equals(System.Object otherClient)
+    // a task that reads all client records from the salon database clients table
+    public static List<Client> GetAll()
     {
-      if(!(otherClient is Client))
+      List<Client> allClients = new List<Client>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
       {
-        return false;
+        int clientId = rdr.GetInt32(0);
+        string clientName = rdr.GetString(1);
+        string clientService = rdr.GetString(2);
+        Client newClient = new Client(clientName, clientService, clientId, clientId);
+        allClients.Add(newClient);
       }
-      else
+      if(rdr!=null)
       {
-        Client newClient = (Client) otherClient;
-        bool nameEquality =(this.GetName() == newClient.GetName());
-        bool idEquality = (this.GetId() == newClient.GetId());
-        return(nameEquality && idEquality);
+        rdr.Close();
       }
+      if(conn!=null)
+      {
+        conn.Close();
+      }
+      return allClients;
     }
     public void Save()
     {
@@ -90,38 +116,7 @@ namespace Salon
         conn.Close();
       }
     }
-    public static int GetCount()
-    {
-      return _clients.Count;
-    }
-    // a task that reads all client records from the salon database clients table
-    public static List<Client> GetAll()
-    {
-      List<Client> allClients = new List<Client>{};
-      SqlConnection conn = DB.Connection();
-      conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM clients;", conn);
-      SqlDataReader rdr = cmd.ExecuteReader();
-
-      while(rdr.Read())
-      {
-        int clientId = rdr.GetInt32(0);
-        string clientName = rdr.GetString(1);
-        string clientService = rdr.GetString(2);
-        Client newClient = new Client(clientName, clientService, clientId);
-        allClients.Add(newClient);
-      }
-      if(rdr!=null)
-      {
-        rdr.Close();
-      }
-      if(conn!=null)
-      {
-        conn.Close();
-      }
-      return allClients;
-    }
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
@@ -130,17 +125,9 @@ namespace Salon
       cmd.ExecuteNonQuery();
       conn.Close();
     }
-    public static Client FindById(int id)
-    {
-      return _clients[id-1];
-    }
     public void Update(string name)
     {
       _name = name;
-    }
-    public static void DeleteById(int id)
-    {
-      _clients.RemoveAt(id);
     }
     public static Client Find(int id)
     {
