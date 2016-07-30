@@ -1,5 +1,7 @@
 using System;
-using System. Collections.Generic;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Salon
 {
@@ -69,6 +71,36 @@ namespace Salon
     public List<Client> GetClients()
     {
       return _clients;
+    }
+    public static Stylist Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @StylistId;", conn);
+      SqlParameter stylistIdParameter = new SqlParameter();
+      stylistIdParameter.ParameterName = "@StylistId";
+      stylistIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(stylistIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+      int foundStylistId = 0;
+      string foundStylistName = null;
+      string foundStylistSpecialty = null;
+      while(rdr.Read())
+      {
+        foundStylistId = rdr.GetInt32(0);
+        foundStylistName= rdr.GetString(1);
+        foundStylistSpecialty = rdr.GetString(2);
+      }
+      Stylist foundStylist = new Stylist(foundStylistName, foundStylistSpecialty);
+      if(rdr!=null)
+      {
+        rdr.Close();
+      }
+      if(conn!=null)
+      {
+        conn.Close();
+      }
+      return foundStylist;
     }
   }
 }
