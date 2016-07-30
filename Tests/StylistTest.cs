@@ -132,7 +132,7 @@ namespace Salon
       string nameClient = "Mouse";
       string serviceClient = "Shedding";
       Stylist testStylist = new Stylist(nameStylist, specialityStylist);
-      Client testClient = new Client(nameClient, serviceClient);
+      Client testClient = new Client(nameClient, serviceClient, 1);
       testStylist.Save();
       testClient.Save();
       List<Client> listExpected = new List<Client> {testClient};

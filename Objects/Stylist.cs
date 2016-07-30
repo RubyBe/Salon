@@ -33,6 +33,10 @@ namespace Salon
     {
       return _id;
     }
+    public string GetSpecialty()
+    {
+      return _specialty;
+    }
 
     // Other methods
     // method to add a client to this stylist's list of clients
@@ -46,7 +50,36 @@ namespace Salon
     }
     public void Save()
     {
-      _stylists.Add(this);
+      // Set and open the database connection
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      // Build the SQL query
+      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name, specialty) OUTPUT INSERTED.id VALUES (@StylistName, @StylistSpecialty);", conn);
+      // Define parameters to inject into the query
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@StylistName";
+      nameParameter.Value = this.GetName();
+      SqlParameter specialtyParamater = new SqlParameter();
+      specialtyParamater.ParameterName = "@StylistSpecialty";
+      specialtyParamater.Value = this.GetSpecialty();
+      // Inject parameters into the Query
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(specialtyParamater);
+      // Execute the SQL query
+      SqlDataReader rdr = cmd.ExecuteReader();
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      // Close any open connections
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
     }
     public static List<Stylist> GetAll()
     {

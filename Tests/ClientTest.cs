@@ -29,7 +29,7 @@ namespace Salon
     public void Test_Save_SavesToDatabase()
     {
       // Arrange
-      Client testClient = new Client("Doc Gonzo", "Brush");
+      Client testClient = new Client("Doc Gonzo", "Brush", 1);
       List<Client> listExpected = new List<Client>{testClient};
       // Act
       testClient.Save();
@@ -41,7 +41,7 @@ namespace Salon
     public void Test_Save_AssignsIdToObject()
     {
       // Arrange
-      Client testClient = new Client("Doc Gonzo", "Haircut");
+      Client testClient = new Client("Doc Gonzo", "Haircut", 1);
       // Act
       testClient.Save();
       Client savedClient = Client.GetAll()[0];
@@ -57,7 +57,7 @@ namespace Salon
       string name = "Doc Gonzo";
       string service = "Haircut";
       // Act
-      Client testClient = new Client(name, service);
+      Client testClient = new Client(name, service, 1);
       string testName = testClient.GetName();
       // Assert
       Console.WriteLine(testClient);
@@ -67,7 +67,7 @@ namespace Salon
     public void FindById_FindsAClientById_ClientFoundById()
     {
       // Arrange
-      Client testClient = new Client("Doc Gonzo", "Brush");
+      Client testClient = new Client("Doc Gonzo", "Brush", 1);
       testClient.Save();
       // Act
       Client foundClient = Client.Find(testClient.GetId());
@@ -80,7 +80,7 @@ namespace Salon
       // Arrange
       string name1 = "Doc Gonzo";
       string service1 = "Fur";
-      Client testClient1 = new Client(name1, service1);
+      Client testClient1 = new Client(name1, service1, 1);
       testClient1.Save();
       string name2 = "Doctor Gonzo";
       string nameExpected = name2;
@@ -94,8 +94,8 @@ namespace Salon
     public void Test_NamesAreEqual_ReturnsTrueIfNamesAreTheSame()
     {
       // Arrange, Act
-      Client firstClient = new Client("Doc Gonzo", "Brush");
-      Client secondClient = new Client("Doc Gonzo", "Brush");
+      Client firstClient = new Client("Doc Gonzo", "Brush", 1);
+      Client secondClient = new Client("Doc Gonzo", "Brush", 1);
       //Assert
       Assert.Equal(firstClient, secondClient);
     }

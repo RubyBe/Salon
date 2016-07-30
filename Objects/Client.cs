@@ -11,14 +11,16 @@ namespace Salon
     private int _id;
     private string _name;
     private string _treatment;
+    private int _stylistId;
     private static List<Client> _clients = new List<Client>{};
 
     // Constructors
-    public Client(string name, string treatment, int Id=0)
+    public Client(string name, string treatment, int stylistId, int Id=0)
     {
       _id = Id;
       _name = name;
       _treatment = treatment;
+      _stylistId = stylistId;
     }
 
     // Getters, Setters
@@ -57,7 +59,7 @@ namespace Salon
       SqlConnection conn = DB.Connection();
       conn.Open();
       // Build the SQL query
-      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, treatment) OUTPUT INSERTED.id VALUES (@ClientName, @ClientTreatment);", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, treatment, stylist_id) OUTPUT INSERTED.id VALUES (@ClientName, @ClientTreatment, @Stylist_id);", conn);
       // Define parameters to inject into the query
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@ClientName";
@@ -65,9 +67,13 @@ namespace Salon
       SqlParameter treatmentParameter = new SqlParameter();
       treatmentParameter.ParameterName = "@ClientTreatment";
       treatmentParameter.Value = this.GetTreatment();
+      SqlParameter stylistParameter = new SqlParameter();
+      stylistParameter.ParameterName = "@Stylist_id";
+      stylistParameter.Value = 1;
       // Inject parameters into the Query
       cmd.Parameters.Add(nameParameter);
       cmd.Parameters.Add(treatmentParameter);
+      cmd.Parameters.Add(stylistParameter);
       // Execute the SQL query
       SqlDataReader rdr = cmd.ExecuteReader();
       while(rdr.Read())
