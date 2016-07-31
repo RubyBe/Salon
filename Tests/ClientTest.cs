@@ -86,5 +86,22 @@ namespace Salon
       //Assert
       Assert.Equal(firstClient, secondClient);
     }
+    [Fact]
+    public void Test_Delete_DeletesClientFromDatabase()
+    {
+      // Arrange
+      string name = "Yousef";
+      Client testClient = new Client(name, "Cuts", 1);
+      testClient.Save();
+      string name2 = "John";
+      Client testClient2 = new Client(name, "Brushes", 1);
+      testClient2.Save();
+      // Act
+      testClient.Delete();
+      List<Client> resultClients = Client.GetAll();
+      List<Client> testClientList = new List<Client> {testClient2};
+      // Assert
+      Assert.Equal(testClientList, resultClients);
+    }
   }
 }

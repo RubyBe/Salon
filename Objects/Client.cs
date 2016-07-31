@@ -165,5 +165,10 @@ namespace Salon
       }
       return foundClient;
     }
+    // a method that deletes a single client from the database
+    public void Delete()
+    {
+      // TODO
+    }
   }
 }
