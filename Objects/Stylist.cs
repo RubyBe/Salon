@@ -37,6 +37,41 @@ namespace Salon
     {
       return _specialty;
     }
+    public List<Client> GetClients(int id)
+    {
+      List<Client> allClients = new List<Client>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE stylist_id = @StylistId;", conn);
+      SqlParameter stylistIdParameter = new SqlParameter();
+      stylistIdParameter.ParameterName = "@StylistId";
+      stylistIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(stylistIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundClientId = 0;
+      string foundClientName = null;
+      string foundClientTreatment = null;
+      while(rdr.Read())
+      {
+        foundClientId = rdr.GetInt32(0);
+        foundClientName = rdr.GetString(1);
+        foundClientTreatment = rdr.GetString(2);
+        Client foundClient = new Client(foundClientName, foundClientTreatment, foundClientId);
+        allClients.Add(foundClient);
+      }
+      if(rdr!=null)
+      {
+        rdr.Close();
+      }
+      if(conn!=null)
+      {
+        conn.Close();
+      }
+      return allClients;
+    }
 
     // Other methods
     // a method that tests equality of objects based on value of _name
