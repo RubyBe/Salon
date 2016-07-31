@@ -30,6 +30,19 @@ namespace Salon
        return View["stylist.cshtml", model];
      };
 
+     Get["/stylist/edit/{id}"] = parameters =>
+     {
+       Stylist selectedStylist = Stylist.Find(parameters.id);
+       return View["stylist_edit.cshtml", selectedStylist];
+     };
+
+     Patch["stylist/edit/{id}"] = parameters =>
+     {
+       Stylist selectedStylist = Stylist.Find(parameters.id);
+       selectedStylist.Update(Request.Form["stylist-name"]);
+       return View["success.cshtml"];
+     };
+
      Post["/stylist/new"] = _ =>
      {
        Client newClient = new Client(Request.Form["client-name"], Request.Form["client-treatment"], Request.Form["stylist-id"]);

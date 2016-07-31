@@ -1,4 +1,11 @@
+@{
+  var message = "";
+}
+
 <h1>Stylists Currently at Doc Gonzo's Salon</h1>
+
+<p>@message<p>
+
 
 @if (@Model.Count == 0)
 {
@@ -8,7 +15,7 @@
   @foreach (var stylist in Model)
   {
     <li><h2><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></h2></li>
-    <li>This stylist's speciality is: @stylist.GetSpecialty()</li>
+    <li>This stylist's speciality is: @stylist.GetSpecialty() | <a href ="/stylist/edit/@stylist.GetId()">Edit</a></li>
   }
 </ul>
 <hr></hr>

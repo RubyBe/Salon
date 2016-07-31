@@ -37,10 +37,6 @@ namespace Salon
     {
       return _specialty;
     }
-    public void Update(string newName)
-    {
-      _name = newName;
-    }
 
     // Other methods
     // a method that tests equality of objects based on value of _name
@@ -55,6 +51,35 @@ namespace Salon
         Stylist newStylist = (Stylist) otherStylist;
         bool nameEquality =(this.GetName() == newStylist.GetName());
         return(nameEquality);
+      }
+    }
+    // a method to update the name of a stylist
+    public void Update(string newName)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("UPDATE stylists SET NAME = @NewName OUTPUT INSERTED.name WHERE id = @StylistId;", conn);
+      SqlParameter newNameParameter = new SqlParameter();
+      newNameParameter.ParameterName = "@NewName";
+      newNameParameter.Value = newName;
+      SqlParameter stylistIdParameter = new SqlParameter();
+      stylistIdParameter.ParameterName = "@StylistId";
+      stylistIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(newNameParameter);
+      cmd.Parameters.Add(stylistIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+      while(rdr.Read())
+      {
+        this._name = rdr.GetString(0);
+      }
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
       }
     }
     // a method to return a list of all stylists
@@ -193,6 +218,10 @@ namespace Salon
         conn.Close();
       }
       return foundStylist;
+    }
+    public void Delete()
+    {
+      // TODO
     }
   }
 }

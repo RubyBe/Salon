@@ -62,5 +62,29 @@ namespace Salon
       // Assert
       Assert.Equal(newName, result);
     }
+    [Fact]
+    public void Test_Delete_DeletesStylistFromDatabase()
+    {
+      // Arrange
+      string name = "Doctor Gonzo";
+      Stylist testStylist = new Stylist(name, "Cuts");
+      testStylist.Save();
+      string name2 = "Mouse";
+      Stylist testStylist2 = new Stylist(name, "Brushes");
+      testStylist2.Save();
+      Client testClient = new Client("Sid", "Cut", testStylist.GetId());
+      testClient.Save();
+      Client testClient2 = new Client("Yousef", "Color", testStylist2.GetId());
+      testClient2.Save();
+      // Act
+      testStylist.Delete();
+      List<Stylist> resultStylists = Stylist.GetAll();
+      List<Stylist> testStylistList = new List<Stylist> {testStylist2};
+      List<Client> resultClients = Client.GetAll();
+      List<Client> testClientList = new List<Client> {testClient2};
+      // Assert
+      Assert.Equal(testStylistList, resultStylists);
+      Assert.Equal(testClientList, resultClients);
+    }
   }
 }
