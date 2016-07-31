@@ -1,8 +1,9 @@
-<h2>Here are all the clients who see this stylist:</h2>
-
+<h1>Here are all the clients who see this stylist:</h1>
 @if (@Model["clients"].Count == 0)
 {
   <p>This stylist has no clients yet!</p>
+  <p> This stylist's id is @Model["stylist"].GetId()</p>
+  <p> This stylists's name is @Model["stylist"].GetName()</p>
 }
 else
 {
@@ -12,6 +13,18 @@ else
       <li>@client.GetName()</li>
     }
   </ol>
+  <p> This stylist's id is @Model["stylist"].GetId()</p>
+  <p> This stylists's name is @Model["stylist"].GetName()</p>
 }
-<p><a href="">Add a new Client</a></p>
+<hr></hr>
+<h2>Add a new client for this stylist:</h2>
+<form action="/stylist/new" method="post">
+  <label for="client-name">Client Name:</label>
+  <input name="client-name" type="text">
+  <label for="client-treatment">Client Treatment:</label>
+  <input name="client-treatment" type="text">
+  <input name="stylist-id" hidden="true" value='@Model["stylist"].GetId()'>
+  <button type="submit">Add new Client</button>
+</form>
+
 <p><a href="/">Return to Main Page</a></p>

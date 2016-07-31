@@ -49,6 +49,10 @@ namespace Salon
     {
       return _id;
     }
+    public int GetStylistId()
+    {
+      return _stylistId;
+    }
 
     // Other Methods
     // a task that reads all client records from the salon database clients table
@@ -90,12 +94,14 @@ namespace Salon
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@ClientName";
       nameParameter.Value = this.GetName();
+
       SqlParameter treatmentParameter = new SqlParameter();
       treatmentParameter.ParameterName = "@ClientTreatment";
       treatmentParameter.Value = this.GetTreatment();
+
       SqlParameter stylistParameter = new SqlParameter();
       stylistParameter.ParameterName = "@Stylist_id";
-      stylistParameter.Value = 1;
+      stylistParameter.Value = this.GetStylistId();
       // Inject parameters into the Query
       cmd.Parameters.Add(nameParameter);
       cmd.Parameters.Add(treatmentParameter);

@@ -7,10 +7,11 @@
 <ul>
   @foreach (var stylist in Model)
   {
-    <li><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></li>
+    <li><h2><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></h2></li>
+    <li>This stylist's speciality is: @stylist.GetSpecialty()</li>
   }
 </ul>
-
+<hr></hr>
 
 <form action="/" method="post">
   <label for="stylist-name">Name of Stylist</label>

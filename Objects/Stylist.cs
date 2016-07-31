@@ -21,7 +21,7 @@ namespace Salon
       _name = name;
       _specialty = specialty;
       _id = Id;
-      _clients = new List<Client>{};
+      // _clients = new List<Client>{};
     }
 
     // Getters and Setters
@@ -36,41 +36,6 @@ namespace Salon
     public string GetSpecialty()
     {
       return _specialty;
-    }
-    public List<Client> GetClients(int id)
-    {
-      List<Client> allClients = new List<Client>{};
-      SqlConnection conn = DB.Connection();
-      conn.Open();
-
-      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE stylist_id = @StylistId;", conn);
-      SqlParameter stylistIdParameter = new SqlParameter();
-      stylistIdParameter.ParameterName = "@StylistId";
-      stylistIdParameter.Value = id.ToString();
-      cmd.Parameters.Add(stylistIdParameter);
-
-      SqlDataReader rdr = cmd.ExecuteReader();
-
-      int foundClientId = 0;
-      string foundClientName = null;
-      string foundClientTreatment = null;
-      while(rdr.Read())
-      {
-        foundClientId = rdr.GetInt32(0);
-        foundClientName = rdr.GetString(1);
-        foundClientTreatment = rdr.GetString(2);
-        Client foundClient = new Client(foundClientName, foundClientTreatment, foundClientId);
-        allClients.Add(foundClient);
-      }
-      if(rdr!=null)
-      {
-        rdr.Close();
-      }
-      if(conn!=null)
-      {
-        conn.Close();
-      }
-      return allClients;
     }
 
     // Other methods
@@ -116,6 +81,43 @@ namespace Salon
       }
       return allStylists;
     }
+    // a method to get a stylist's list of clients
+    public List<Client> GetClients(int id)
+    {
+      List<Client> allClients = new List<Client>{};
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE stylist_id = @StylistId;", conn);
+      SqlParameter stylistIdParameter = new SqlParameter();
+      stylistIdParameter.ParameterName = "@StylistId";
+      stylistIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(stylistIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundClientId = 0;
+      string foundClientName = null;
+      string foundClientTreatment = null;
+      while(rdr.Read())
+      {
+        foundClientId = rdr.GetInt32(0);
+        foundClientName = rdr.GetString(1);
+        foundClientTreatment = rdr.GetString(2);
+        Client foundClient = new Client(foundClientName, foundClientTreatment, foundClientId);
+        allClients.Add(foundClient);
+      }
+      if(rdr!=null)
+      {
+        rdr.Close();
+      }
+      if(conn!=null)
+      {
+        conn.Close();
+      }
+      return allClients;
+    }
+    // a method to save a new stylist to the database
     public void Save()
     {
       // Set and open the database connection
@@ -177,7 +179,7 @@ namespace Salon
         foundStylistName= rdr.GetString(1);
         foundStylistSpecialty = rdr.GetString(2);
       }
-      Stylist foundStylist = new Stylist(foundStylistName, foundStylistSpecialty);
+      Stylist foundStylist = new Stylist(foundStylistName, foundStylistSpecialty, foundStylistId);
       if(rdr!=null)
       {
         rdr.Close();

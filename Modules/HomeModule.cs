@@ -29,6 +29,15 @@ namespace Salon
        model.Add("clients", stylistClients);
        return View["stylist.cshtml", model];
      };
+
+     Post["/stylist/new"] = _ =>
+     {
+       Client newClient = new Client(Request.Form["client-name"], Request.Form["client-treatment"], Request.Form["stylist-id"]);
+       newClient.Save();
+       int testId = Request.Form["stylist-id"];
+       Console.WriteLine(testId);
+       return View["success.cshtml"];
+     };
     }
   }
 }
