@@ -39,7 +39,7 @@ namespace Salon
     }
     public void Update(string newName)
     {
-      // TODO
+      _name = newName;
     }
 
     // Other methods
