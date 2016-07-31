@@ -221,7 +221,19 @@ namespace Salon
     }
     public void Delete()
     {
-      // TODO
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM stylists WHERE id=@StylistId; DELETE FROM clients WHERE stylist_id = @StylistId;", conn );
+      SqlParameter stylistIdParameter = new SqlParameter();
+      stylistIdParameter.ParameterName = "@StylistId";
+      stylistIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(stylistIdParameter);
+      cmd.ExecuteNonQuery(); // does not return anything, so don't need to instantiate a reader
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
   }
 }
