@@ -2,28 +2,47 @@
   var message = "";
 }
 
-<h1>Stylists Currently at Doc Gonzo's Salon</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="Content/css/styles.css" rel="stylesheet" type="text/css">
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="Content/js/scripts.js"></script>
+    <title>salon</title>
+  </head>
+  <body>
+    <div class="container jumbotron">
+      <h1>Stylists Currently at Doc Gonzo's Salon</h1>
 
-<p>@message<p>
+      <p>@message<p>
 
-
-@if (@Model.Count == 0)
-{
-  <p>We haven't yet hired any stylists.</p>
-}
-<ul>
-  @foreach (var stylist in Model)
-  {
-    <li><h3><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a> | <a href ="/stylist/edit/@stylist.GetId()">Edit</a>| <a href="/stylist/delete/@stylist.GetId()">Delete</a></h3></li>
-    <li>This stylist's speciality is: @stylist.GetSpecialty()</li>
-  }
-</ul>
-<hr></hr>
-
-<form action="/" method="post">
-  <label for="stylist-name">Name of Stylist</label>
-  <input type="text" name="stylist-name">
-  <label for="stylist-specialty">Specialty of Stylist</label>
-  <input type="text" name="stylist-specialty">
-  <button type="submit">Add this Stylist</button>
-</form>
+        @if (@Model.Count == 0)
+        {
+          <p>We haven't yet hired any stylists.</p>
+        }
+        <ul>
+          @foreach (var stylist in Model)
+          {
+            <li><h3><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a> | <a href ="/stylist/edit/@stylist.GetId()">Edit</a>| <a href="/stylist/delete/@stylist.GetId()">Delete</a></h3></li>
+            <li>This stylist's speciality is: @stylist.GetSpecialty()</li>
+          }
+        </ul>
+    </div>
+    <div class="container jumbotron">
+      <h3>Add a New Stylist</h3>
+      <hr>
+      <form action="/" method="post">
+        <label for="stylist-name">Name of Stylist</label>
+        <input type="text" name="stylist-name">
+        <label for="stylist-specialty">Specialty of Stylist</label>
+        <input type="text" name="stylist-specialty">
+        <button type="submit">Add this Stylist</button>
+      </form>
+    </div>
+  </body>
+</html>
