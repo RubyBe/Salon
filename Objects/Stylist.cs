@@ -219,6 +219,7 @@ namespace Salon
       }
       return foundStylist;
     }
+    // a method that deletes a single stylist and associated clients from the database
     public void Delete()
     {
       SqlConnection conn = DB.Connection();

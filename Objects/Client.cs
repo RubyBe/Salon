@@ -168,7 +168,19 @@ namespace Salon
     // a method that deletes a single client from the database
     public void Delete()
     {
-      // TODO
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM clients WHERE id=@ClientId;", conn );
+      SqlParameter clientIdParameter = new SqlParameter();
+      clientIdParameter.ParameterName = "@ClientId";
+      clientIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(clientIdParameter);
+      cmd.ExecuteNonQuery(); // does not return anything, so don't need to instantiate a reader
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
   }
 }
