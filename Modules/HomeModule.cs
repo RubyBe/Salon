@@ -34,8 +34,6 @@ namespace Salon
      {
        Client newClient = new Client(Request.Form["client-name"], Request.Form["client-treatment"], Request.Form["stylist-id"]);
        newClient.Save();
-       int testId = Request.Form["stylist-id"];
-       Console.WriteLine(testId);
        return View["success.cshtml"];
      };
     }

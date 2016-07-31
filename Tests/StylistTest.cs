@@ -48,5 +48,19 @@ namespace Salon
       // Assert
       Assert.Equal(testId, result);
     }
+    [Fact]
+    public void Test_Updated_UpdatesStylistInDatabase()
+    {
+      // Arrange
+      string name = "Doctor Gonzo";
+      Stylist testStylist = new Stylist(name, "Cuts");
+      testStylist.Save();
+      string newName = "Dr. Gonzo";
+      // Act
+      testStylist.Update(newName);
+      string result = testStylist.GetName();
+      // Assert
+      Assert.Equal(newName, result);
+    }
   }
 }

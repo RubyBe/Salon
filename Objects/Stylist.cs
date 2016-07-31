@@ -37,6 +37,10 @@ namespace Salon
     {
       return _specialty;
     }
+    public void Update(string newName)
+    {
+      // TODO
+    }
 
     // Other methods
     // a method that tests equality of objects based on value of _name

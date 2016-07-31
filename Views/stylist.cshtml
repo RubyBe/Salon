@@ -1,23 +1,23 @@
 <h1>Here are all the clients who see this stylist:</h1>
+<p>Stylist: @Model["stylist"].GetName()</p>
+<p>Stylist ID: @Model["stylist"].GetId()</p>
 @if (@Model["clients"].Count == 0)
 {
   <p>This stylist has no clients yet!</p>
-  <p> This stylist's id is @Model["stylist"].GetId()</p>
-  <p> This stylists's name is @Model["stylist"].GetName()</p>
 }
 else
 {
-  <ol>
+  <ul>
     @foreach (var client in @Model["clients"])
     {
-      <li>@client.GetName()</li>
+      <li><h3>Client Name: @client.GetName()</h3></li>
+      <li>Standard Service: @client.GetTreatment()</li>
     }
-  </ol>
-  <p> This stylist's id is @Model["stylist"].GetId()</p>
-  <p> This stylists's name is @Model["stylist"].GetName()</p>
+  </ul>
 }
 <hr></hr>
 <h2>Add a new client for this stylist:</h2>
+<hr></hr>
 <form action="/stylist/new" method="post">
   <label for="client-name">Client Name:</label>
   <input name="client-name" type="text">
