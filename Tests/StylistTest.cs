@@ -70,7 +70,7 @@ namespace Salon
       Stylist testStylist = new Stylist(name, "Cuts");
       testStylist.Save();
       string name2 = "Mouse";
-      Stylist testStylist2 = new Stylist(name, "Brushes");
+      Stylist testStylist2 = new Stylist(name2, "Brushes");
       testStylist2.Save();
       Client testClient = new Client("Sid", "Cut", testStylist.GetId());
       testClient.Save();
